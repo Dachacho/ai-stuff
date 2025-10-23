@@ -1,6 +1,7 @@
 from datasets import load_dataset
 from embeddings import encode_texts
 from db import get_client, create_collection, upload_embeddings, search
+from spellcheck import spellcheck, build_custom_spellchecker
 
 def load_and_search():
     ds = load_dataset("ghoumrassi/clothes_sample", split="train[:990]")
@@ -21,8 +22,12 @@ def load_and_search():
     create_collection(client, "db", embeddings.shape[1])
     upload_embeddings(client, "db", embeddings, payloads)
 
-    query = "red hat"
-    query_vec = encode_texts([query])[0]
+    spell = build_custom_spellchecker(texts)
+
+    query = "black sneacker"
+    corrected_query = spellcheck(query, spell)
+    print(f"Corrected query: {corrected_query}")
+    query_vec = encode_texts([corrected_query])[0]
     results = search(client, "db", query_vec, top_k=3)
     print("\nsemantic search results for: ", query)
     for hit in results:
