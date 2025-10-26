@@ -3,7 +3,6 @@ import re
 from sentence_transformers import SentenceTransformer
 import numpy as np
 from db import get_client, create_collection, upload_embeddings_in_batches, search, get_context_for_query
-import requests
 from dotenv import load_dotenv
 import os
 from huggingface_hub import InferenceClient
