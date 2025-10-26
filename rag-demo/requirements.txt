@@ -1,0 +1,9 @@
+sentence-transformers
+qdrant-client
+numpy
+pandas
+datasets
+pdfplumber
+rank_bm25
+requests
+streamlit
